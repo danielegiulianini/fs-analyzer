@@ -1,7 +1,7 @@
 [project]
 name = "fs_analyzer"
 version = "0.1.0"
-description = "My small project"
+description = "A command-line tool for analyzing the file system."
 
 [build-system]
 build-backend = "flit_core.buildapi"
