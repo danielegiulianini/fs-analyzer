@@ -12,10 +12,33 @@ A command-line tool that analyzes and reports on the file system structure and u
 ### Linux
 
 #### Prerequisites
-- Python 3.12.0
 - Git (tested with version 2.30.1)
-- 
+- Python 3.12.0
+- the other dependencies listed in [requirements.txt](./requirements.txt) (before installing these is recommended to create a virtual environment first).
+
 #### Steps
+1. clone the repo into the desired folder:
+
+```bash
+    git clone https://github.com/danielegiulianini/fs-analyzer
+```
+2. move inside the downloaded folder:
+
+```bash
+    cd fs-analyzer
+```
+
+3. create and activate your virtual environment specifying a Python 3.12.0+ interpreter by leveraging the environment manager of choice (e.g., conda, venv).
+
+4. install project dependencies:
+
+```bash
+    pip install -r requirements.txt
+```
+
+5. use the app by referring to the instructions given in the [usage section](#how-to-use).
+
+6. At the end, possibly deactivate your virtual environment.
 
 
 ### Docker container
@@ -50,15 +73,15 @@ To ease the deployment of the command line demo app a Dockerfile is provided. To
     docker run -it --name <container-name> fs-analyzer-img
 ```
 
+
+6. use the app, referring to instructions given in the [usage section](#how-to-use).
+
+
 5. After exiting the app, remove the container by referring to the name provided before:
 
 ```bash
     docker rm <container-name>
 ```
-
-Then refer to instructions given in the [usage section](#how-to-use).
-
-
 
 ## How to use
 
