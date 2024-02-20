@@ -62,19 +62,27 @@ class CliView(View):
     def on_file_not_found(self)->None:
         # write to standard error(tyoer doesn't do it!)+ exit(1)
         print("ERROR: a file was not found")
-
+        
     def on_directory_not_found(self)->None:
         # write to standard error?
         print("ERROR: directory not found. Please provide a existent directory")
-        #here should exit
         
     def on_permission_error(self)->None:
         print("ERROR: a file was not found")
+        
+    def on_directory_provided_not_found(self)->None:
+        # write to standard error?
+        print("ERROR: directory not found. Please provide a existent directory")
+        raise typer.Aborted()
+    
+    def on_directory_provided_not_accessible(self)->None:
+        # write to standard error?
+        print("ERROR: directory not found. Please provide a directory for which you have permissions")
+        raise typer.Aborted()
 
     #or invalid argument!
     def on_invalid_input(self, msg:str)->None:
-        print("ERROR: a file was not found")
+        print("ERROR: the input you provided is not valid")
 
     def on_unknown_error(self)->None:
-        print("ERROR: an unknown error occurred. Please run the cli with different input.")
-
+        print("ERROR: an unknown error occurred.")
