@@ -4,7 +4,13 @@
 A command-line tool that analyzes and reports on the file system structure and usage on a Linux system.
 
 ## Features
-
+1. Directory Traversal: The tool should be able to traverse through a specified directory recursively.
+2. File Type Categorization: Classify files into categories (e.g., text, image, executable, etc.) based on their extensions or file signatures.
+3. Size Analysis: Calculate and display the total size for each file type category.
+4. File Permissions Report: Generate a report of files with unusual permission settings (e.g., world-writable files).
+5. Large Files Identification: Identify and list files above a certain size threshold.
+6. User Interface: Implement a simple command-line interface where users can specify the directory to be analyzed and set parameters like size threshold.
+7. Error Handling: Robust error handling for scenarios like inaccessible directories.
 
 ## How to deploy
 
@@ -74,7 +80,7 @@ To ease the deployment of the command line demo app a Dockerfile is provided. To
 ```
 
 
-6. use the app, referring to instructions given in the [usage section](#how-to-use).
+6. use the app by referring to the instructions given in the [usage section](#how-to-use).
 
 
 5. After exiting the app, remove the container by referring to the name provided before:
