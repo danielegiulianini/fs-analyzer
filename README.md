@@ -19,3 +19,6 @@
 - Git (tested with version 2.30.1) 
 
 ## How to use
+
+
+## Hints on future optimizations
