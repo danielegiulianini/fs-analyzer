@@ -28,7 +28,7 @@ def test_handle_provided_directory_not_found_gracefully():
     except Exception as excinfo:  
         fail(f"Unexpected exception raised: {excinfo}") 
 
-    mock.on_invalid_input.assert_called_once_with()
+    mock.on_invalid_input.assert_called_once_with("The provided path does not point to a directory.")
 
 
 def test_handle_provided_directory_not_readable_gracefully():

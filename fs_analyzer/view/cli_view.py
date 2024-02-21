@@ -104,6 +104,6 @@ class CliView(View):
     def on_unknown_error(self)->None:
         print("ERROR: an unknown error occurred.")
 
-    def on_invalid_input(self)->None:
-        print("ERROR: the input you provided is not valid.")
+    def on_invalid_input(self, msg)->None:
+        print("ERROR:" + msg)
         raise typer.Abort()

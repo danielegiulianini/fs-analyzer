@@ -89,7 +89,7 @@ class DirectoryObserver(ABC):
         """
         pass
     
-    def on_invalid_input(self)->None:
+    def on_invalid_input(self, msg:str)->None:
         """Defines how to handle the notification of an invalid input.
         """
         pass
