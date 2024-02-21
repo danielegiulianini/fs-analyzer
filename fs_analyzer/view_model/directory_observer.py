@@ -6,8 +6,8 @@ from fs_analyzer.model import file_permissions, file_category
 class DirectoryObserver(ABC):
     """An abstract observer for directory analyzer's analysis intermediate outcomes 
     during traversal, like new file discovery.
-    Leveraging the behavioural "Observer" Object-Oriented design pattern allows to 
-    avoid the use of collections to gather results so optimizing the for handling 
+    Leveraging the behavioural "Observer" OO design pattern allows to 
+    avoid the use of large collections to gather results so optimizing it for handling 
     the traversal of large directories.
     """
     
