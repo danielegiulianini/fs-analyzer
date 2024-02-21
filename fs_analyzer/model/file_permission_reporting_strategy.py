@@ -11,8 +11,6 @@ class FilePermissionsReportingStrategy(ABC):
         pass
     
 class StricterPermissionsReporting(FilePermissionsReportingStrategy):
-    
-    #this is needed if view wants to display filepermission too (not only the names of the files with weird permissions)
     def report_unusual_permissions(self, stat:stat_result)->Set[FilePermission]:
         unusual_permissions = set()
         if is_world_executable(stat):
@@ -20,7 +18,6 @@ class StricterPermissionsReporting(FilePermissionsReportingStrategy):
         return unusual_permissions
 
 class LooserPermissionsReporting(FilePermissionsReportingStrategy):
-    #this is needed if view wants to display filepermission too (not only filesnames with weird permissions)
     def report_unusual_permissions(self, stat:stat_result)->Set[FilePermission]:
         unusual_permissions = set()
         if is_world_executable(stat):

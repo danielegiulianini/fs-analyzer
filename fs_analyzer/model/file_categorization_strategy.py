@@ -10,7 +10,6 @@ class FileCategorizationStrategy(ABC):
     def categorize_file(filepath)->FileCategory:
         pass
 
-
 class FileCategorizerBySignature(FileCategorizationStrategy):
     def categorize_file(self, filepath:str)->FileCategory:
         # if I use library here need to put try (especially if reads from file)!
@@ -25,7 +24,6 @@ class FileCategorizerByExtension(FileCategorizationStrategy):
         mimetypes.init()
         
     def categorize_file(self, filepath:str)->FileCategory:
-        # if I use library here need to put try (especially if reads from file)!
         category = UNKNOWN_FILE_CATEGORY
         guessedMime, _ = mimetypes.guess_type(filepath)
         if guessedMime is not None:

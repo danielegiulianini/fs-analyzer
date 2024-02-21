@@ -2,7 +2,6 @@ from os import stat_result
 import stat
 from dataclasses import dataclass
 
-
 @dataclass(frozen=True)
 class FilePermission:
     name: str
@@ -15,7 +14,7 @@ UNUSUAL_PERMISSIONS = {
     "IS_GUID_ENABLED": FilePermission("IS_GUID_ENABLED"),
 }
 
-#in priority order (should take a general not-library class, but don't want to pollute with too many classes)
+#in priority order
 def is_world_writable(st:stat_result):
     return bool(st.st_mode & stat.S_IWGRP)
 

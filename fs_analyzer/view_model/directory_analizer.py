@@ -36,7 +36,7 @@ class DirectoryAnalizer():
         for (filepath, permissions) in yield_unusual_permissions(directory_path=self._directory_path,
                                                                  permission_reporting_strategy = self._permission_reporting_strategy,
                                                                  on_error=self._walk_error_handler):
-            self._observer.on_new_file_category_size(filepath, permissions)
+            self._observer.on_new_file_with_unusual_permission(filepath, permissions)
 
     #4
     def identify_large_files(self,file_size_in_bytes:int)->None:
@@ -55,7 +55,7 @@ class DirectoryAnalizer():
     # e lo dice alla view? (mi tocca aggiungere dipendenza ad os)...
 
     #or as a method (need a parameter then to generators methods) (if use a library for file signature must check what exceptions can cause)
-    def _walk_error_handler(self,exception_instance):
+    def _walk_error_handler(self, exception_instance):
         match exception_instance:
             case FileNotFoundError():
                 self._observer.on_file_not_found()
