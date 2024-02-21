@@ -18,7 +18,7 @@ class DirectoryAnalizerFactory(ABC):
 
 
 class ExtensionDirectoryAnalizerFactory(DirectoryAnalizerFactory):
-    """A concrete factory for creating directory analyzers that classifies files according
+    """A concrete factory for creating directory analyzers that classify files according
     to their extension (e.g., txt, jpeg). It inherits from 
     fs_analyzer.viewmodel.directory_analizer_factory.DirectoryAnalizerFactory.
     """
@@ -30,7 +30,7 @@ class ExtensionDirectoryAnalizerFactory(DirectoryAnalizerFactory):
                                  directory_observer)
 
 class SignatureDirectoryAnalizerFactory(DirectoryAnalizerFactory):
-    """A concrete factory for creating directory analyzers that classifies files according
+    """A concrete factory for creating directory analyzers that classify files according
     to their file signature. It inherits from 
     fs_analyzer.viewmodel.directory_analizer_factory.DirectoryAnalizerFactory.
     """
@@ -42,7 +42,7 @@ class SignatureDirectoryAnalizerFactory(DirectoryAnalizerFactory):
                                  directory_observer)
     
 class LoosePermAnalyzerFactory(DirectoryAnalizerFactory):
-    """A concrete factory for creating directory analyzers that identifies unusual
+    """A concrete factory for creating directory analyzers that identify unusual
     file permissions setting with a loose policy. It inherits from 
     fs_analyzer.viewmodel.directory_analizer_factory.DirectoryAnalizerFactory.
     """
@@ -54,7 +54,7 @@ class LoosePermAnalyzerFactory(DirectoryAnalizerFactory):
                                  directory_observer) 
     
 class StrictPermAnalyzerFactory(DirectoryAnalizerFactory):
-    """A concrete factory for creating directory analyzers that identifies unusual
+    """A concrete factory for creating directory analyzers that identify unusual
     file permissions setting with a strict policy. It inherits from 
     fs_analyzer.viewmodel.directory_analizer_factory.DirectoryAnalizerFactory.
     """
