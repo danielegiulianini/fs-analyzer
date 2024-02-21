@@ -7,22 +7,60 @@ from fs_analyzer.model.file_permission_reporting_strategy import LooserPermissio
 
 
 class DirectoryAnalizerFactory(ABC):
+    """An abstract factory for creating the most suitable directory analyzer 
+    according to user needs, by leveraging the "Abstract Factory" Object-Oriented 
+    design pattern.
+    """
     @abstractmethod
-    def create(self, directorypath:str, observer: DirectoryObserver)->DirectoryAnalizer:
+    def create(self, directory_path:str, 
+               directory_observer: DirectoryObserver)->DirectoryAnalizer:
         pass
-    
+
+
 class ExtensionDirectoryAnalizerFactory(DirectoryAnalizerFactory):
-    def create(self, directorypath:str, observer: DirectoryObserver)->DirectoryAnalizer:
-        return DirectoryAnalizer(directorypath, FileCategorizerByExtension(), StricterPermissionsReporting(), observer)
+    """A concrete factory for creating directory analyzers that classifies files according
+    to their extension (e.g., txt, jpeg). It inherits from 
+    fs_analyzer.viewmodel.directory_analizer_factory.DirectoryAnalizerFactory.
+    """
+    def create(self, directory_path:str, 
+               directory_observer: DirectoryObserver)->DirectoryAnalizer:
+        return DirectoryAnalizer(directory_path, 
+                                 FileCategorizerByExtension(), 
+                                 StricterPermissionsReporting(), 
+                                 directory_observer)
 
 class SignatureDirectoryAnalizerFactory(DirectoryAnalizerFactory):
-    def create(self, directorypath:str, observer: DirectoryObserver)->DirectoryAnalizer:
-        return DirectoryAnalizer(directorypath, FileCategorizerBySignature(), StricterPermissionsReporting(), observer)
+    """A concrete factory for creating directory analyzers that classifies files according
+    to their file signature. It inherits from 
+    fs_analyzer.viewmodel.directory_analizer_factory.DirectoryAnalizerFactory.
+    """
+    def create(self, directory_path:str, 
+               directory_observer: DirectoryObserver)->DirectoryAnalizer:
+        return DirectoryAnalizer(directory_path, 
+                                 FileCategorizerBySignature(), 
+                                 StricterPermissionsReporting(), 
+                                 directory_observer)
     
 class LoosePermAnalyzerFactory(DirectoryAnalizerFactory):
-    def create(self, directorypath:str, observer: DirectoryObserver)->DirectoryAnalizer:
-        return DirectoryAnalizer(directorypath, FileCategorizerBySignature(), LooserPermissionsReporting(), observer) 
+    """A concrete factory for creating directory analyzers that identifies unusual
+    file permissions setting with a loose policy. It inherits from 
+    fs_analyzer.viewmodel.directory_analizer_factory.DirectoryAnalizerFactory.
+    """
+    def create(self, directory_path:str, 
+               directory_observer: DirectoryObserver)->DirectoryAnalizer:
+        return DirectoryAnalizer(directory_path, 
+                                 FileCategorizerBySignature(), 
+                                 LooserPermissionsReporting(), 
+                                 directory_observer) 
     
 class StrictPermAnalyzerFactory(DirectoryAnalizerFactory):
-    def create(self, directorypath:str, observer: DirectoryObserver)->DirectoryAnalizer:
-        return DirectoryAnalizer(directorypath, FileCategorizerBySignature(), StricterPermissionsReporting(), observer) 
+    """A concrete factory for creating directory analyzers that identifies unusual
+    file permissions setting with a strict policy. It inherits from 
+    fs_analyzer.viewmodel.directory_analizer_factory.DirectoryAnalizerFactory.
+    """
+    def create(self, directory_path:str, 
+               directory_observer: DirectoryObserver)->DirectoryAnalizer:
+        return DirectoryAnalizer(directory_path, 
+                                 FileCategorizerBySignature(), 
+                                 StricterPermissionsReporting(), 
+                                 directory_observer) 

@@ -23,8 +23,8 @@ def teardown_module():
 
 def test_handle_provided_directory_not_found_gracefully():
     mock = MagicMock()
-    directory_analizer = ExtensionDirectoryAnalizerFactory().create(directorypath = directory_tree.test_path() + "jsj", 
-                                                                    observer = mock) 
+    directory_analizer = ExtensionDirectoryAnalizerFactory().create(directory_path = directory_tree.test_path() + "jsj", 
+                                                                    directory_observer = mock) 
     try:  
         directory_analizer.categorize_files()
     except Exception as excinfo:  
@@ -34,8 +34,8 @@ def test_handle_provided_directory_not_found_gracefully():
 
 
 def test_handle_provided_directory_not_readable_gracefully():
-    directory_analizer = ExtensionDirectoryAnalizerFactory().create(directorypath = directory_tree.test_path(), 
-                                                                    observer = MagicMock())
+    directory_analizer = ExtensionDirectoryAnalizerFactory().create(directory_path = directory_tree.test_path(), 
+                                                                    directory_observer = MagicMock())
     
     #remove permission to open a directory
     no_read_permission_mode = 0o444
