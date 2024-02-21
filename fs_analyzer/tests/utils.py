@@ -52,7 +52,7 @@ class DirectoryTreeScenario:
     #called once for all the functions in the module
     def create_directory_tree(self):
         
-        print("setting up directory tree")
+        print("setting up directory tree...")
         join = os.path.join
 
         os.mkdir(self._test_path)

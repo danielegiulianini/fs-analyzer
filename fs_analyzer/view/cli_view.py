@@ -69,23 +69,15 @@ class CliView(View):
         print("ERROR: a file was not found")
         
     def on_directory_not_found(self)->None:
-        print("ERROR: directory not found. Please provide a existent directory")
+        print("ERROR: directory not found.")
         
     def on_permission_error(self)->None:
         print("ERROR: a file was not found")
         
     def on_unknown_error(self)->None:
         print("ERROR: an unknown error occurred.")
-        
-    def on_directory_provided_not_found(self)->None:
-        print("ERROR: directory not found. Please provide a existent directory")
-        raise typer.Aborted()
-    
-    def on_directory_provided_not_accessible(self)->None:
-        print("ERROR: directory not found. Please provide a directory for which you have permissions")
-        raise typer.Aborted()
 
     #or invalid argument!
-    def on_invalid_input(self, msg:str)->None:
-        print("ERROR: the input you provided is not valid")
-        raise typer.Aborted()
+    def on_invalid_input(self)->None:
+        print("ERROR: the input you provided is not valid.")
+        raise typer.Abort()

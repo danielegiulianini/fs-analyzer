@@ -2,9 +2,11 @@ from os import stat_result
 import stat
 from dataclasses import dataclass
 
+
 @dataclass(frozen=True)
 class FilePermission:
     name: str
+
 
 UNUSUAL_PERMISSIONS = {
     "WORLD_WRITABLE" : FilePermission("WORLD_EXECUTABLE"),

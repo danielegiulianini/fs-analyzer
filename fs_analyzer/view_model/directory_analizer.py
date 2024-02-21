@@ -1,6 +1,5 @@
 from fs_analyzer.view_model.directory_observer import DirectoryObserver
 from fs_analyzer.model.file_categorization_strategy import FileCategorizationStrategy
-
 from fs_analyzer.model.file_listing_generators import *
 
 
@@ -15,6 +14,13 @@ class DirectoryAnalizer():
         self._file_categorization_strategy = file_categorization_strategy
         self._permission_reporting_strategy = permission_reporting_strategy
         self._observer = observer
+        if not os.path.isdir(self._directory_path):
+            self._observer.on_invalid_input()
+            print("directory is NOT valid")
+
+        else:
+            print("directory is valid")
+
 
         
     #1
@@ -49,10 +55,10 @@ class DirectoryAnalizer():
                 self._observer.on_new_large_file(filepath, size)
 
 
-    #un decorator check che controlla la cartella se:
+    #un decorator check che controlla la cartella root se:
     # 1. esiste
     # 2. hai i permessi su di essa
-    # e lo dice alla view? (mi tocca aggiungere dipendenza ad os)...
+    # => lo dice alla view? (mi tocca aggiungere dipendenza ad os)...
 
     #or as a method (need a parameter then to generators methods) (if use a library for file signature must check what exceptions can cause)
     def _walk_error_handler(self, exception_instance):
@@ -63,4 +69,3 @@ class DirectoryAnalizer():
                 self._observer.on_permission_error() 
             case Exception():
                 self._observer.on_unknown_error()
-                

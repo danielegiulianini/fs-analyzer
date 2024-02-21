@@ -8,7 +8,7 @@ from fs_analyzer.model import file_category
 class DirectoryObserver(ABC):
     
     @abstractmethod
-    def on_new_categorized_file(self, filepath:str, filecategory: file_category.FileCategory)->None:
+    def on_new_categorized_file(self, file_path:str, filecategory: file_category.FileCategory)->None:
         pass
     
     @abstractmethod
@@ -23,7 +23,7 @@ class DirectoryObserver(ABC):
     def on_new_large_file(self, filepath:str, size:int)->None:
         pass
 
-    #>errors (map to exceptions)
+    #>user-non-guilty errors (map to exceptions)
     def on_file_not_found(self)->None:
         pass
 
@@ -33,9 +33,11 @@ class DirectoryObserver(ABC):
     def on_permission_error(self)->None:
         pass
     
-    #or invalid argument!
-    def on_invalid_input(self, msg:str)->None:
-        pass
-
     def on_unknown_error(self)->None:
         pass
+    
+    #user-guilty errors
+    def on_invalid_input(self)->None:
+        pass
+
+ 

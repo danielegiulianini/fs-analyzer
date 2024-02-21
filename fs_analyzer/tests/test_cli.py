@@ -56,7 +56,21 @@ def test_only_directory_argument_must_be_provided_to_reporting_perm_command():
 def test_a_integer_size_argument_must_be_provided_to_large_files_command():
     result = runner.invoke(view.app, ["bigfiles", "./", "notaninteger"])
     assert result.exit_code != 0
-    
 
-#ORA testare TUTTI I METODI DI errore ASSOCIATI ALL'OBSERVER che devono abortire abortiscono 
+def test_a_existent_directory_must_be_provided_to_categorize_command():
+    result = runner.invoke(view.app, ["categorizes", "notvaliddirectory/"])
+    assert result.exit_code != 0
+
+def test_a_existent_directory_must_be_provided_to_cat_sizes_command():
+    result = runner.invoke(view.app, ["catsizes", "notvaliddirectory/"])
+    assert result.exit_code != 0
+    
+def test_a_existent_directory_must_be_provided_to_reporting_perm_command():
+    result = runner.invoke(view.app, ["fileperms", "notvaliddirectory/"])
+    assert result.exit_code != 0
+    
+def test_a_existent_directory_must_be_provided_to_large_files_command():
+    result = runner.invoke(view.app, ["largefiles", "notvaliddirectory/", 2])
+    assert result.exit_code != 0
+
 
