@@ -90,14 +90,14 @@ To ease the deployment of the command line demo app a Dockerfile is provided. To
 ```
 
 ## How to use
-After having deployed the project like explained [before](#how-to-deploy), to use the tool you must specify this syntax at the prompt:
+After having deployed the project like [explained](#how-to-deploy), to use the tool you must specify this syntax at the prompt:
 
 ```bash
     main.py [OPTIONS] COMMAND [ARGS] ...
 ``` 
 where the options are:
 ```bash
-    * --help                      Show this message and exit.
+    * --help      Show this message and exit.
 ```
 and the commands are:
 ```bash
@@ -111,5 +111,5 @@ and the commands are:
 
 ## Possible future developements
 
-1. Since the function os.walk(...) already explores internally (up to Python 3.12.2) a time-consuming call to os.stat() for obtaining file info, an implementation reusing this call instead of using a separate one could be explored for improved efficiency.
-2. As obtaining file information involves time-consuming I/O operations and blocking system calls, an implementation that leverages asynchronous I/O could be explored for improved efficiency.
+1. Since the function [os.walk(...)](https://docs.python.org/3/library/os.html#os.walk) already explores internally (up to Python 3.12.2) a time-consuming call to [os.stat()](https://docs.python.org/3/library/os.html#os.stat) for obtaining file info, an implementation reusing this call instead of using a separate one could be explored for improved efficiency.
+2. As obtaining file information involves time-consuming I/O operations and blocking system calls, an implementation that leverages asynchronous I/O could be explored for improved efficiency. This is more impactful if a digital signature is implied for file categorization.
