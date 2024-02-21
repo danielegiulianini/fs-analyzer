@@ -32,14 +32,14 @@ def test_size_argument_must_be_provided_to_large_files_command():
     result = runner.invoke(view.app, ["bigfiles", "directorypath/"])
     assert result.exit_code != 0
 
-#check right command format
+# check right command format
 @pytest.mark.parametrize("command", ["categorizes", "bigfilesw", "catsizesll", "filepermspp"])
 def test_correct_categorize_command_name_must_be_provided_to_cli(command): 
     result = runner.invoke(view.app, command)
     assert result.exit_code != 0
 
 
-#right # of arguments
+# check right # of arguments
 def test_only_directory_argument_must_be_provided_to_categorize_command():
     result = runner.invoke(view.app, ["categorizes", "directorypath/", "uselessargument"])
     assert result.exit_code != 0
@@ -52,7 +52,7 @@ def test_only_directory_argument_must_be_provided_to_reporting_perm_command():
     result = runner.invoke(view.app, ["fileperms", "directorypath/", "uselessargument"])
     assert result.exit_code != 0
 
-#right argument format
+# check right argument format
 def test_a_integer_size_argument_must_be_provided_to_large_files_command():
     result = runner.invoke(view.app, ["bigfiles", "./", "notaninteger"])
     assert result.exit_code != 0

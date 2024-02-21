@@ -17,8 +17,7 @@ def setup_module():
 def teardown_module():
     directory_tree.remove_directory_tree()
 
-#>>>>>> NORMAL FUNCTIONING >>>>>>>>>>>>>>>>
-
+# check normal scenario
 def test_categorized_files_report_all_categorized_files():
     files_categories = { fp: get_category(fp) for fp in directory_tree.files_paths() }
     generated_files_categories = list(yield_file_categories(directory_path = directory_tree.test_path(),
@@ -71,7 +70,7 @@ def test_category_sizes_report_all_categories_sizes():
    
 
 
-#>>>>>> CHECK EMPTY DIRECTORY >>>>>>>>>>>>>>>>
+# check empty directory scenario
 empty_dir = os.path.join(TEST_PATH, 'emptydir')
 def test_no_files_sizes_if_empty_directory():
     with pytest.raises(StopIteration):
@@ -88,6 +87,3 @@ def test_no_unusual_permissions_if_empty_directory():
 def test_no_categories_if_empty_directory():
      with pytest.raises(StopIteration):
         next(yield_categories_sizes(empty_dir))
-
-
-#>>>>>> NO FOLLOW SYMLINK >>>>>>>>>>>>>>>>

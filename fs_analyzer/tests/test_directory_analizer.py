@@ -10,16 +10,14 @@ from fs_analyzer.view_model.directory_analizer_factory import ExtensionDirectory
 TEST_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), 'testdir'))
 directory_tree = DirectoryTreeScenario(TEST_PATH)
 
-# could use the ad-hoc fixture https://docs.pytest.org/en/6.2.x/tmpdir.html to raise the abstraction level
+# could use the ad-hoc fixture https://docs.pytest.org/en/6.2.x/tmpdir.html 
+# to raise the abstraction level and avoid boilerplate
 def setup_module():
     directory_tree.create_directory_tree()
     
 def teardown_module():
     directory_tree.remove_directory_tree()
 
-
-
-#>>>>>>>> INVALID PROVIDED DIRECTORY >>>>>>>>>>>>
 
 def test_handle_provided_directory_not_found_gracefully():
     mock = MagicMock()
