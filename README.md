@@ -97,13 +97,7 @@ After having deployed the project like explained [before](#how-to-deploy), to us
 ``` 
 where the options are:
 ```bash
-
-    * --install-completion [bash|zsh|fish|powershell|pwsh]
-                                  Install completion for the specified shell.
-    * --show-completion [bash|zsh|fish|powershell|pwsh]
-                                  Show completion for the specified shell, to
-                                  copy it or customize the installation.
-    * --help                          Show this message and exit.
+    * --help                      Show this message and exit.
 ```
 and the commands are:
 ```bash
