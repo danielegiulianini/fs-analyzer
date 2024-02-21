@@ -7,30 +7,37 @@ from fs_analyzer.view.view import View
 
 
 class CliView(View):
-    """
-        Represents a command line interface (CLI) application for accessing the file-system analysis and reporting functionalities. 
+    """Represents a command line interface (CLI) application for accessing the file-system 
+        analysis and reporting functionalities. 
     """
 
     def __init__(self):
         self.app = typer.Typer()
-        self.app.command(name = "categorize", help="Classify files into mime/types (e.g., image/jpeg).")(self.categorize_files)
-        self.app.command(name = "fileperms", help="List files with unusual permission settings.")(self.report_permissions)
-        self.app.command(name = "catsizes", help="Display the total size per category of files.")(self.analize_category_sizes)
-        self.app.command(name = "bigfiles", help="List the files above SIZE")(self.identify_large_files)
+        self.app.command(name = "categorize", 
+                         help="Classify files into mime/types (e.g., image/jpeg).")(self.categorize_files)
+        self.app.command(name = "fileperms",
+                         help="List files with unusual permission settings.")(self.report_permissions)
+        self.app.command(name = "catsizes", 
+                         help="Display the total size per category of files.")(self.analize_category_sizes)
+        self.app.command(name = "bigfiles", 
+                         help="List the files above SIZE")(self.identify_large_files)
 
-        """ Displays the CLI app.
-        """
+        
     def show(self):
+        """ Displayes the CLI app"""
         self.app()
 
-        """ Triggers the classification of the files contained in `directory_path`."""    
+           
     def categorize_files(self, directory_path: str):
+        """ Triggers the classification of the files contained in directory_path provided.""" 
         print("filepath\t| category")
         print("------------------------------")
         ExtensionDirectoryAnalizerFactory().create(directory_path, self).categorize_files()
 
         """ Triggers the permissions settings report generation for the files contained in `directory_path`."""
     def report_permissions(self, directory_path: str):
+        """
+        """
         print("filepath\t| permissions")
         print("------------------------------")
         LoosePermAnalyzerFactory().create(directory_path, self).report_permissions()
@@ -48,23 +55,22 @@ class CliView(View):
         ExtensionDirectoryAnalizerFactory().create(directory_path, self).identify_large_files(size)
 
 
-    def on_new_categorized_file(self, filepath:str, 
-                                filecategory: file_category.FileCategory)->None:
-        print(filepath + "\t| " + str(filecategory.name))
+    def on_new_categorized_file(self, file_path:str, 
+                                file_category: file_category.FileCategory)->None:
+        print(file_path + "\t| " + str(file_category.name))
         
-    def on_new_file_category_size(self, filecategory: file_category.FileCategory, 
-                                  size:int)->None:
-        print(str(filecategory) + "\t| " + str(size))
+    def on_new_file_category_size(self, files_category: file_category.FileCategory, 
+                                  category_size:int)->None:
+        print(str(files_category) + "\t| " + str(category_size))
 
     def on_new_file_with_unusual_permission(self, filepath:str, 
                                             permissions: Set[file_permissions.FilePermission])->None:
         print(filepath + "\t| " + str(set(map(lambda fp:fp.name, permissions))))
         
-    def on_new_large_file(self, filepath:str, size:int)->None:
-        print(filepath + "\t| " + str(size))
+    def on_new_large_file(self, file_path:str, file_size:int)->None:
+        print(file_path + "\t| " + str(file_size))
 
 
-    #>errors (map to domain exceptions)
     def on_file_not_found(self)->None:
         print("ERROR: a file was not found")
         
@@ -77,7 +83,6 @@ class CliView(View):
     def on_unknown_error(self)->None:
         print("ERROR: an unknown error occurred.")
 
-    #or invalid argument!
     def on_invalid_input(self)->None:
         print("ERROR: the input you provided is not valid.")
         raise typer.Abort()

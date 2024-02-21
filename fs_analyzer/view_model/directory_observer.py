@@ -1,9 +1,7 @@
 from abc import ABC, abstractmethod
-from fs_analyzer.model import file_permissions, file_category
 from typing import Set
 
-from fs_analyzer.model import file_category
-
+from fs_analyzer.model import file_permissions, file_category
 
 class DirectoryObserver(ABC):
     """An abstract observer for directory analyzer's analysis intermediate outcomes 

@@ -5,7 +5,7 @@ and report on the file system structure and usage, designed for handling
 large directories. They are reusable outside of the scope of the fs_analyzer 
 command line application app.
     
-In particular, it contains:
+In particular:
 
 Modules:
 * file_categorization_strategy.py: containing some interchangeable strategies for classifying

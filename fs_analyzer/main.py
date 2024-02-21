@@ -1,6 +1,7 @@
 """File system analyzer 
 
-This script is the entry point for fs_analyzer, a command line application that analyzes and reports on the file system structure and usage.
+This script is the entry point for fs_analyzer, a command line application that
+analyzes and reports on the file system structure and usage.
 The use the tool you must specify this syntax at the prompt:
 
     main.py [OPTIONS] COMMAND [ARGS]...

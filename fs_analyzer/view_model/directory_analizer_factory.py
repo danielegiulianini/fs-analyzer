@@ -8,8 +8,8 @@ from fs_analyzer.model.file_permission_reporting_strategy import LooserPermissio
 
 class DirectoryAnalizerFactory(ABC):
     """An abstract factory for creating the most suitable directory analyzer 
-    according to user needs, by leveraging the "Abstract Factory" Object-Oriented 
-    design pattern.
+    according to user needs, by leveraging the creational "Abstract Factory" 
+    Object-Oriented design pattern.
     """
     @abstractmethod
     def create(self, directory_path:str, 

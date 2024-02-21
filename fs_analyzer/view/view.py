@@ -7,7 +7,8 @@ class View(DirectoryObserver):
     actually be a command-line or a graphic user interface.
 
     Args:
-        DirectoryObserver (_type_): The abstraction representing an Observer of the directory tree events.
+        DirectoryObserver (_type_): The abstraction representing an Observer of the directory tree
+        traversal events.
     """
     @abstractmethod
     def show(self):
