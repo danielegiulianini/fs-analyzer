@@ -25,7 +25,7 @@ class FilePermissionsReportingStrategy(ABC):
         pass
     
 class StricterPermissionsReporting(FilePermissionsReportingStrategy):
-    """Deem as unusual the files which can be executed by anyone.
+    """Deems as unusual the files which can be executed by anyone.
 
     Args:
         FilePermissionsReportingStrategy (_type_): the abstract permissions reporting strategy.
@@ -37,7 +37,7 @@ class StricterPermissionsReporting(FilePermissionsReportingStrategy):
         return unusual_permissions
 
 class LooserPermissionsReporting(FilePermissionsReportingStrategy):
-    """Deem as unusual the files which can be executed and written by anyone.
+    """Deems as unusual the files which can be executed and written by anyone.
 
     Args:
         FilePermissionsReportingStrategy (_type_): the abstract file permissions reporting strategy.
