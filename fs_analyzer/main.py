@@ -12,7 +12,7 @@ where the options are:
     * --show-completion [bash|zsh|fish|powershell|pwsh]
                                   Show completion for the specified shell, to
                                   copy it or customize the installation.
-    * --help                          Show this message and exit.
+    * --help                      Show this message and exit.
 
 and the commands are:
     * bigfiles    List the files above SIZE
