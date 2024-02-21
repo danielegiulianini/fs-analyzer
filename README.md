@@ -90,10 +90,10 @@ To ease the deployment of the command line demo app a Dockerfile is provided. To
 ```
 
 ## How to use
-After having deployed the project like [explained](#how-to-deploy), to use the tool you must specify this syntax at the prompt:
+After having deployed the project like [explained](#how-to-deploy) and moved to the fs-analyzer\fs_analyzer directory, to use the tool you must specify this syntax at the prompt:
 
 ```bash
-    main.py [OPTIONS] COMMAND [ARGS] ...
+    python main.py [OPTIONS] COMMAND [ARGS] ...
 ``` 
 
 where the options are:
