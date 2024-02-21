@@ -5,7 +5,8 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class FilePermission:
-    """ Represents a file permission setting of a file, which cannot be edited at runtime.
+    """ Represents a file permission setting of a file. Instances of this class 
+    cannot be edited at runtime.
     
     Args:
         name (str): a human-readable name for the file permission assigned to the file.

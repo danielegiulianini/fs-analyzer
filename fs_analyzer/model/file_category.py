@@ -3,10 +3,11 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class FileCategory:
-    """ Represents a possible classification of a file, which cannot be edited at runtime.
+    """Represents a possible classification of a file. Instances of this class 
+    cannot be edited at runtime.
     
     Args:
-            name (str): a human-readable name for the category assigned to the file.
+        name (str): a human-readable name for the category assigned to the file.
 
     """
     name: str
