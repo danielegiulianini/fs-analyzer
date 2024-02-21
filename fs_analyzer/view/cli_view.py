@@ -24,32 +24,53 @@ class CliView(View):
 
         
     def show(self):
-        """ Displayes the CLI app"""
+        """ Displayes the CLI app."""
         self.app()
 
            
     def categorize_files(self, directory_path: str):
-        """ Triggers the classification of the files contained in directory_path provided.""" 
+        """Triggers the classification of the files contained in directory_path provided.
+        
+        Args:
+            directory_path (str): the path where the directory root to be analyzed
+                of the tree resides
+        """
         print("filepath\t| category")
         print("------------------------------")
         ExtensionDirectoryAnalizerFactory().create(directory_path, self).categorize_files()
 
-        """ Triggers the permissions settings report generation for the files contained in `directory_path`."""
+        
     def report_permissions(self, directory_path: str):
+        """ Triggers the permissions settings report generation for the files contained in `directory_path`.
+        
+        Args:
+            directory_path (str): the path where the directory root to be analyzed
+                of the tree resides.
         """
-        """
+        
         print("filepath\t| permissions")
         print("------------------------------")
         LoosePermAnalyzerFactory().create(directory_path, self).report_permissions()
 
-        """ Triggers the analysis of the sizes of each file category for the files contained in `directory_path`."""
+        
     def analize_category_sizes(self, directory_path:str):
+        """ Triggers the analysis of the category sizes.
+        
+        Args:
+            directory_path (str): the path where the directory root to be analyzed
+                of the tree resides.
+        """
         print("category\t| size (B)")
         print("------------------------------")
         ExtensionDirectoryAnalizerFactory().create(directory_path, self).analize_category_sizes()
 
-        """ Triggers the identification of the files with size greater than `size` contained in `directory_path`."""
     def identify_large_files(self, directory_path:str, size:int):
+        """ Triggers the identification of the files larger than size.
+        
+        Args:
+            directory_path (str): the path where the directory root to be analyzed
+                of the tree resides.
+        """
         print("filepath\t| size (B)")
         print("------------------------------")
         ExtensionDirectoryAnalizerFactory().create(directory_path, self).identify_large_files(size)

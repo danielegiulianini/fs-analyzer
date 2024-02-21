@@ -18,5 +18,4 @@ Modules:
     with unusual permission settings, modeled through the so-called "Strategy" OO design pattern.
 * file_permissions: containing the definition of the class representing the abstraction of file permission.
 
-
 """
