@@ -102,7 +102,7 @@ where the options are:
 and the commands are:
 ```bash
 
-    * bigfiles    List the files above SIZE
+    * bigfiles    List the files above SIZE.
     * categorize  Classify files into mime/types (e.g., image/jpeg).
     * catsizes    Display the total size per category of files.
     * fileperms   List files with unusual permission settings.

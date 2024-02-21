@@ -20,7 +20,7 @@ class CliView(View):
         self.app.command(name = "catsizes", 
                          help="Display the total size per category of files.")(self.analize_category_sizes)
         self.app.command(name = "bigfiles", 
-                         help="List the files above SIZE")(self.identify_large_files)
+                         help="List the files above SIZE.")(self.identify_large_files)
 
         
     def show(self):
