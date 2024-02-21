@@ -17,7 +17,7 @@ class FilePermission:
     """Some file permissions considered unusual.
     """
 UNUSUAL_PERMISSIONS = {
-    "WORLD_WRITABLE" : FilePermission("WORLD_EXECUTABLE"),
+    "WORLD_EXECUTABLE" : FilePermission("WORLD_EXECUTABLE"),
     "WITH_ANY_OWNER_PERMISSIONS" : FilePermission("WITH_ANY_OWNER_PERMISSIONS"),
     "WORLD_WRITABLE" : FilePermission("WORLD_WRITABLE"),
     "IS_SUID_ENABLED" : FilePermission("IS_SUID_ENABLED"),
