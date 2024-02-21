@@ -11,4 +11,6 @@ class View(DirectoryObserver):
     """
     @abstractmethod
     def show(self):
+        """Shows the view.
+        """
         pass
