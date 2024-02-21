@@ -18,7 +18,7 @@ def teardown_module():
     directory_tree.remove_directory_tree()
 
 # check normal scenario
-def test_categorized_files_report_all_categorized_files():
+def test_categorized_files_report_returns_all_categorized_files():
     files_categories = { fp: get_category(fp) for fp in directory_tree.files_paths() }
     generated_files_categories = list(yield_file_categories(directory_path = directory_tree.test_path(),
                                                             file_categorization_strategy = FileCategorizerByExtension()))
@@ -27,7 +27,7 @@ def test_categorized_files_report_all_categorized_files():
     assert generated_files_categories == files_categories
 
 
-def test_size_report_all_files_sizes():
+def test_size_report_returns_all_files_sizes():
     
     files_sizes = { fp: get_size(fp) for fp in directory_tree.files_paths() }
     generated_files_sizes = list(yield_files_sizes(directory_tree.test_path()))
@@ -36,7 +36,7 @@ def test_size_report_all_files_sizes():
     assert generated_files_sizes == files_sizes
     
 
-def test_permissions_report_all_unusual_permissions():
+def test_permissions_report_returns_all_unusual_permissions():
     # Define the permission mode to make the file non-world-writable
     permission_mode = 0o644
     
@@ -49,7 +49,7 @@ def test_permissions_report_all_unusual_permissions():
     
     assert len(generated_files_permissions) == len(files_permissions)
   
-def test_large_files_report_all_large_files():
+def test_large_files_report_returns_all_large_files():
     size_threshold_in_bytes = 10
     files_sizes = { fp: get_size(fp) for fp in directory_tree.files_paths() if get_size(fp)> size_threshold_in_bytes}
     generated_files_sizes = list(yield_files_larger_than(directory_tree.test_path(), size_threshold_in_bytes))
@@ -58,7 +58,7 @@ def test_large_files_report_all_large_files():
     assert generated_files_sizes == files_sizes
 
 
-def test_category_sizes_report_all_categories_sizes():
+def test_category_sizes_report_returns_all_categories_sizes():
     generated_categories_sizes = list(yield_categories_sizes(TEST_PATH, FileCategorizerByExtension()))
 
     categorized_files = { fp: get_category(fp) for fp in directory_tree.files_paths() }    
