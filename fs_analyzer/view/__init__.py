@@ -3,7 +3,7 @@
 This package contains the UI-related logic of the fs_analyzer app.
 
     
-In particular:
+In particular,
 
 Modules:
 * cli_view.py: containing the implementation of a basic command line UI accessing the features
