@@ -7,30 +7,28 @@ view = CliView()
 runner = CliRunner()
 
 
-
-#### ERRRORS
 #check required commands/arguments
 def test_command_must_be_provided_to_cli():
     result = runner.invoke(view.app, [""])
-    assert result.exit_code != 0    
+    assert result.exit_code != 0
 
-def test_directory_must_be_provided_to_cli_when_categorizing():
+def test_directory_must_be_provided_to_categorize_command():
     result = runner.invoke(view.app, ["categorize"])
     assert result.exit_code != 0
     
-def test_directory_must_be_provided_to_cli_when_reporting_perm():
+def test_directory_must_be_provided_to_reporting_perm_command():
     result = runner.invoke(view.app, ["fileperms"])
     assert result.exit_code != 0
 
-def test_directory_must_be_provided_to_cli_when_identifying_large_files():
+def test_directory_must_be_provided_large_files_command():
     result = runner.invoke(view.app, ["bigfiles"])
     assert result.exit_code != 0
     
-def test_directory_must_be_provided_to_cli_when_analyzing_cat_sizes():
+def test_directory_must_be_provided_to_analyze_cat_sizes_command():
     result = runner.invoke(view.app, ["catsizes"])
     assert result.exit_code != 0
 
-def test_size_argument_must_provided_to_large_size_command():
+def test_size_argument_must_be_provided_to_large_files_command():
     result = runner.invoke(view.app, ["bigfiles", "directorypath/"])
     assert result.exit_code != 0
 
@@ -41,10 +39,24 @@ def test_correct_categorize_command_name_must_be_provided_to_cli(command):
     assert result.exit_code != 0
 
 
-#controlla se dai degli argomenti in più
-#controlla se dai un non int per la size cosa succede
-#controlla se dai un non stringa per la size cosa succede
+#right # of arguments
+def test_only_directory_argument_must_be_provided_to_categorize_command():
+    result = runner.invoke(view.app, ["categorizes", "directorypath/", "uselessargument"])
+    assert result.exit_code != 0
 
-#ORA testare TUTTI I METODI DI GUI ASSOCIATI ALL'OBSERVER
+def test_only_directory_argument_must_be_provided_to_cat_sizes_command():
+    result = runner.invoke(view.app, ["catsizes", "directorypath/", "uselessargument"])
+    assert result.exit_code != 0
+    
+def test_only_directory_argument_must_be_provided_to_reporting_perm_command():
+    result = runner.invoke(view.app, ["fileperms", "directorypath/", "uselessargument"])
+    assert result.exit_code != 0
 
+#right argument format
+def test_a_integer_size_argument_must_be_provided_to_large_files_command():
+    result = runner.invoke(view.app, ["bigfiles", "./", "notaninteger"])
+    assert result.exit_code != 0
+    
+
+#ORA testare TUTTI I METODI DI errore ASSOCIATI ALL'OBSERVER che devono abortire abortiscono 
 
