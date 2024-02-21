@@ -94,5 +94,5 @@ To ease the deployment of the command line demo app a Dockerfile is provided. To
 
 ## Possible future developements
 
-1. Since the function os.walk(...) already exploits internally (up to Python 3.12.2) a time-consuming call to os.stat() for getting file info, an implementation reusing this call instead of a further one for getting file permissions and size could be explored for improved efficiency.
-2. Since getting info on file requires time-consuming, I/O, blocking system calls, an implementation leverage async I/O could be explored.
+1. Since the function os.walk(...) already explores internally (up to Python 3.12.2) a time-consuming call to os.stat() for obtaining file info, an implementation reusing this call instead of using a separate one could be explored for improved efficiency.
+2. As obtaining file information involves time-consuming I/O operations and blocking system calls, an implementation that leverages asynchronous I/O could be explored for improved efficiency.
