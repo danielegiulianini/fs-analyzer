@@ -95,17 +95,18 @@ After having deployed the project like [explained](#how-to-deploy), to use the t
 ```bash
     main.py [OPTIONS] COMMAND [ARGS] ...
 ``` 
+
 where the options are:
 ```bash
-    * --help      Show this message and exit.
+     --help      Show this message and exit.
 ```
 and the commands are:
 ```bash
 
-    * bigfiles    List the files above SIZE.
-    * categorize  Classify files into mime/types (e.g., image/jpeg).
-    * catsizes    Display the total size per category of files.
-    * fileperms   List files with unusual permission settings.
+     bigfiles    List the files above SIZE.
+     categorize  Classify files into mime/types (e.g., image/jpeg).
+     catsizes    Display the total size per category of files.
+     fileperms   List files with unusual permission settings.
 
 ```
 
