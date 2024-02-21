@@ -7,7 +7,7 @@ In particular,
 
 Modules:
 
-* test_cli.py: test the correct input validation performed by the CLI.
+* test_cli.py: testing the correct input validation performed by the CLI.
 * test_directory_analizer.py: checking the graceful degradation in case of 
     unexpected situations.
 * test_generators.py: containing the tests of the lower level file-listing generators,
