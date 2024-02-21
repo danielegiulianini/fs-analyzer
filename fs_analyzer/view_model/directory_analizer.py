@@ -31,8 +31,8 @@ class DirectoryAnalizer():
         """Configures the analyzer.
 
         Args:
-            directory_path (str): the path where the directory root to be analyzed
-                of the tree resides.
+            directory_path (str): the path where the directory root of the tree to be analyzed
+                resides.
             file_categorization_strategy (FileCategorizationStrategy): the strategy by
             which to classify files. 
             permission_reporting_strategy (FilePermissionsReportingStrategy): the strategy by
