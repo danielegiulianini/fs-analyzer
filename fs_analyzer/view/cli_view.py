@@ -32,8 +32,8 @@ class CliView(View):
         """Triggers the classification of the files contained in directory_path provided.
         
         Args:
-            directory_path (str): the path where the directory root to be analyzed
-                of the tree resides
+            directory_path (str): the path where the directory root of the tree to be analyzed
+                resides.
         """
         print("filepath\t| category")
         print("------------------------------")
@@ -44,8 +44,8 @@ class CliView(View):
         """ Triggers the permissions settings report generation for the files contained in `directory_path`.
         
         Args:
-            directory_path (str): the path where the directory root to be analyzed
-                of the tree resides.
+            directory_path (str): the path where the directory root of the tree to be analyzed
+                resides.
         """
         
         print("filepath\t| permissions")
@@ -57,8 +57,8 @@ class CliView(View):
         """ Triggers the analysis of the category sizes.
         
         Args:
-            directory_path (str): the path where the directory root to be analyzed
-                of the tree resides.
+            directory_path (str): the path where the directory root of the tree to be analyzed
+                resides.
         """
         print("category\t| size (B)")
         print("------------------------------")
@@ -68,14 +68,14 @@ class CliView(View):
         """ Triggers the identification of the files larger than size.
         
         Args:
-            directory_path (str): the path where the directory root to be analyzed
-                of the tree resides.
+            directory_path (str): the path where the directory root of the tree to be analyzed
+                resides.
         """
         print("filepath\t| size (B)")
         print("------------------------------")
         ExtensionDirectoryAnalizerFactory().create(directory_path, self).identify_large_files(size)
 
-
+    # notes for future developements: f-strings are more efficient than + operator for concatenating
     def on_new_categorized_file(self, file_path:str, 
                                 file_category: file_category.FileCategory)->None:
         print(file_path + "\t| " + str(file_category.name))
