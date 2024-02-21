@@ -56,8 +56,7 @@ class DirectoryAnalizer():
                 self._observer.on_file_not_found()
             except PermissionError: 
                 self._observer.on_permission_error() 
-            except Exception as e:
-                print(e)
+            except Exception:
                 self._observer.on_unknown_error()
         return inner_function
     
