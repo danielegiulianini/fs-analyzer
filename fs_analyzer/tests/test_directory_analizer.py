@@ -1,5 +1,5 @@
 import os
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 from pytest import fail
 
 from fs_analyzer.tests.utils import DirectoryTreeScenario
@@ -28,14 +28,14 @@ def test_handle_provided_directory_not_found_gracefully():
     except Exception as excinfo:  
         fail(f"Unexpected exception raised: {excinfo}") 
 
-    mock.on_file_not_found.assert_called_once_with()
+    mock.on_invalid_input.assert_called_once_with()
 
 
 def test_handle_provided_directory_not_readable_gracefully():
     directory_analizer = ExtensionDirectoryAnalizerFactory().create(directory_path = directory_tree.test_path(), 
                                                                     directory_observer = MagicMock())
     
-    #remove permission to open a directory
+    # remove permission to open a directory
     no_read_permission_mode = 0o444
     os.chmod(directory_tree.test_path(), no_read_permission_mode)
     
@@ -49,8 +49,13 @@ def test_handle_provided_directory_not_readable_gracefully():
         os.chmod(directory_tree.test_path(), all_permission_mode)
 
 
-
+@patch('fs_analyzer.view_model.directory_analizer.yield_file_categories')
+def test_mock_stubs(test_patch):
+    test_patch.side_effect = Exception('mocked error')
     
+    directory_analizer = ExtensionDirectoryAnalizerFactory().create(directory_path = directory_tree.test_path(), 
+                                                                    directory_observer = MagicMock())
+    directory_analizer.categorize_files()
     
     
 
