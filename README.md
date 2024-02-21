@@ -94,21 +94,25 @@ After having deployed the project like explained [before](#how-to-deploy), to us
 
 ```bash
     main.py [OPTIONS] COMMAND [ARGS] ...
-    
+``` 
 where the options are:
+```bash
+
     * --install-completion [bash|zsh|fish|powershell|pwsh]
                                   Install completion for the specified shell.
     * --show-completion [bash|zsh|fish|powershell|pwsh]
                                   Show completion for the specified shell, to
                                   copy it or customize the installation.
     * --help                          Show this message and exit.
-
+```
 and the commands are:
+```bash
+
     * bigfiles    List the files above SIZE
     * categorize  Classify files into mime/types (e.g., image/jpeg).
     * catsizes    Display the total size per category of files.
     * fileperms   List files with unusual permission settings.
-    
+
 ```
 
 ## Possible future developements
