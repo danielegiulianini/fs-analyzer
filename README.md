@@ -92,7 +92,8 @@ To ease the deployment of the command line demo app a Dockerfile is provided. To
 ## How to use
 After having deployed the project like explained [before](#how-to-deploy), to use the tool you must specify this syntax at the prompt:
 
-    main.py [OPTIONS] COMMAND [ARGS]...
+```bash
+    main.py [OPTIONS] COMMAND [ARGS] ...
     
 where the options are:
     * --install-completion [bash|zsh|fish|powershell|pwsh]
@@ -107,6 +108,8 @@ and the commands are:
     * categorize  Classify files into mime/types (e.g., image/jpeg).
     * catsizes    Display the total size per category of files.
     * fileperms   List files with unusual permission settings.
+    
+```
 
 ## Possible future developements
 
