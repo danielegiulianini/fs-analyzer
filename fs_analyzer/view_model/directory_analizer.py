@@ -45,36 +45,47 @@ class DirectoryAnalizer():
         self._permission_reporting_strategy = permission_reporting_strategy
         self._observer = observer
         if not os.path.isdir(self._directory_path):
-            self._observer.on_invalid_input()
+            self._observer.on_invalid_input("The provided path does not point to a directory.")
 
 
+    def _os_error_handler(func):
+        def inner_function(self, *args, **kwargs):
+            try:
+                func(self, *args, **kwargs)
+            except FileNotFoundError:
+                self._observer.on_file_not_found()
+            except PermissionError: 
+                self._observer.on_permission_error() 
+            except Exception as e:
+                print(e)
+                self._observer.on_unknown_error()
+        return inner_function
     
+    @_os_error_handler
     def categorize_files(self)->None:
         """Walks the directory tree classifying files.
         """
         for (filepath, category) in yield_file_categories(directory_path=self._directory_path, 
-                                                          file_categorization_strategy = self._file_categorization_strategy,
-                                                          on_error=self._walk_error_handler):
+                                                          file_categorization_strategy = self._file_categorization_strategy):
            self._observer.on_new_categorized_file(filepath, category)
 
-    
+    @_os_error_handler
     def analize_category_sizes(self)->None:
         """"Walks the directory tree reporting files categories' sizes.
         """
         for (category, size) in yield_categories_sizes(directory_path = self._directory_path, 
-                                                       file_categorization_strategy = self._file_categorization_strategy,
-                                                       on_error=self._walk_error_handler):
+                                                       file_categorization_strategy = self._file_categorization_strategy):
             self._observer.on_new_file_category_size(category, size)
 
+    @_os_error_handler
     def report_permissions(self)->None:
         """"Walks the directory tree by reporting files with unusual permissions settings.
         """
         for (filepath, permissions) in yield_unusual_permissions(directory_path=self._directory_path,
-                                                                 permission_reporting_strategy = self._permission_reporting_strategy,
-                                                                 on_error=self._walk_error_handler):
+                                                                 permission_reporting_strategy = self._permission_reporting_strategy):
             self._observer.on_new_file_with_unusual_permission(filepath, permissions)
 
-
+    @_os_error_handler
     def identify_large_files(self,file_size_in_bytes:int)->None:
         """Walks the directory tree by identifying files with size greater than the provided
         threshold.
@@ -83,18 +94,11 @@ class DirectoryAnalizer():
             than this threshold will be included in the results.
         """
         if file_size_in_bytes < 0:
-            self._observer.on_invalid_input()
+            self._observer.on_invalid_input("the provided size must be >=0.")
         else:
             for (filepath, size) in yield_files_larger_than(directory_path=self._directory_path, 
-                                                            threshold_in_bytes=file_size_in_bytes, 
-                                                            on_error=self._walk_error_handler):
+                                                            threshold_in_bytes=file_size_in_bytes):
                 self._observer.on_new_large_file(filepath, size)
 
-    def _walk_error_handler(self, exception_instance):
-        match exception_instance:
-            case FileNotFoundError():
-                self._observer.on_file_not_found()
-            case PermissionError(): 
-                self._observer.on_permission_error() 
-            case Exception():
-                self._observer.on_unknown_error()
+
+    
