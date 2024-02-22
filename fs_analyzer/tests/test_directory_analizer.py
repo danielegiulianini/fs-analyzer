@@ -50,7 +50,7 @@ def test_handle_provided_directory_not_readable_gracefully():
 
 
 @patch('fs_analyzer.view_model.directory_analizer.yield_file_categories')
-def test_file_not_found_gracefully(test_patch):
+def test_handle_file_not_found_during_tree_traversal_gracefully(test_patch):
     test_patch.side_effect = FileNotFoundError('mocked error')
     
     directory_analizer = ExtensionDirectoryAnalizerFactory().create(directory_path = directory_tree.test_path(), 
