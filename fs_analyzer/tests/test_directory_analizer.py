@@ -50,13 +50,16 @@ def test_handle_provided_directory_not_readable_gracefully():
 
 
 @patch('fs_analyzer.view_model.directory_analizer.yield_file_categories')
-def test_mock_stubs(test_patch):
-    test_patch.side_effect = Exception('mocked error')
+def test_file_not_found_gracefully(test_patch):
+    test_patch.side_effect = FileNotFoundError('mocked error')
     
     directory_analizer = ExtensionDirectoryAnalizerFactory().create(directory_path = directory_tree.test_path(), 
                                                                     directory_observer = MagicMock())
-    directory_analizer.categorize_files()
     
+    try:  
+        directory_analizer.categorize_files()
+    except Exception as excinfo:  
+        fail(f"Unexpected exception raised: {excinfo}") 
     
 
 
