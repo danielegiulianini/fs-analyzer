@@ -5,7 +5,7 @@ from fs_analyzer.model.file_categorization_strategy import *
 from fs_analyzer.model.file_permission_reporting_strategy import *
 from fs_analyzer.model.file_category import FileCategory
 from fs_analyzer.model.file_permissions import FilePermission
-
+from fs_analyzer.model.func_utils import call_if_not_none_with_param as call_if_not_none
 
 def yield_files_sizes(directory_path: str, 
                       on_error = None)->Generator[tuple[str, int],None, None]:
@@ -32,8 +32,13 @@ def yield_files_sizes(directory_path: str,
     for root, _, filenames in os.walk(directory_path, 
                                       onerror=on_error):
         for file_name in filenames:
-            file_path = os.path.join(root, file_name)
-            file_size = os.stat(file_path).st_size
+            try:
+                file_path = os.path.join(root, file_name)
+                file_size = os.stat(file_path).st_size
+            except OSError as e:
+                if on_error is not None:
+                    on_error(e)
+                continue
             yield (file_path, file_size)
 
 
@@ -65,8 +70,13 @@ def yield_file_categories(directory_path: str,
     """
     for root, _, filenames in os.walk(directory_path, onerror=on_error):
         for file_name in filenames:
-            file_path = os.path.join(root, file_name)
-            file_category = file_categorization_strategy.categorize_file(file_path)
+            try:
+                file_path = os.path.join(root, file_name)
+                file_category = file_categorization_strategy.categorize_file(file_path)
+            except OSError as e:
+                if on_error is not None:
+                    on_error(e)
+                continue
             yield (file_path, file_category)
  
 def yield_files_larger_than(directory_path: str,
@@ -125,11 +135,16 @@ def yield_unusual_permissions(directory_path:str,
     """
     for root, _, filenames in os.walk(directory_path, onerror=on_error):
         for filename in filenames:
-            filepath = os.path.join(root, filename)
-            stat = os.stat(filepath)
-            yield (filepath, permission_reporting_strategy.report_unusual_permissions(stat))
+            try:
+                filepath = os.path.join(root, filename)
+                stat = os.stat(filepath)
+                unusual_permissions = permission_reporting_strategy.report_unusual_permissions(stat)
+            except OSError as e:
+                if on_error is not None:
+                    on_error(e)
+                continue
+            yield (filepath, unusual_permissions)
         
-# categorizzazione on-line (cos' non sono costretto ad avere una struttura dati gigantesca di tutti i file in memoria)
 def yield_categories_sizes(directory_path:str, 
                            file_categorization_strategy: FileCategorizationStrategy = FileCategorizerByExtension(), 
                            on_error = None)->Generator[tuple[FileCategory, int], None, None]:
@@ -157,13 +172,17 @@ def yield_categories_sizes(directory_path:str,
 
     """
     sizes_by_categories = {}
-    for root, _, filenames in os.walk(directory_path, onerror=on_error):
+    for root, _, filenames in os.walk(directory_path, onerror = on_error):
         for filename in filenames:
-            filepath = os.path.join(root, filename)
-            filesize = os.stat(filepath).st_size
-            filecategory =  file_categorization_strategy.categorize_file(filepath)
-            if filecategory in sizes_by_categories:
-                sizes_by_categories[filecategory]+=filesize
-            else:
-                sizes_by_categories[filecategory]=filesize
+            try:
+                filepath = os.path.join(root, filename)
+                filesize = os.stat(filepath).st_size
+                filecategory =  file_categorization_strategy.categorize_file(filepath)
+                if filecategory in sizes_by_categories:
+                    sizes_by_categories[filecategory]+=filesize
+                else:
+                    sizes_by_categories[filecategory]=filesize
+            except OSError as e:
+                if on_error is not None:
+                    on_error(e)
     return  ((category, sizes) for category, sizes in sizes_by_categories.items())

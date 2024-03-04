@@ -93,24 +93,93 @@ To ease the deployment of the command line demo app a Dockerfile is provided. To
 After having deployed the project like [explained](#how-to-deploy) and moved to the fs-analyzer\fs_analyzer directory, to use the tool you must specify this syntax at the prompt:
 
 ```bash
-    python main.py [OPTIONS] COMMAND [ARGS] ...
+    python main.py COMMAND [ARGS] ...
 ``` 
 
-where the options are:
-```bash
-     --help      Show this message and exit.
-```
-and the commands are:
+where the commands, along with their (required) arguments are:
 ```bash
 
-     bigfiles    List the files above SIZE.
-     categorize  Classify files into mime/types (e.g., image/jpeg).
-     catsizes    Display the total size per category of files.
-     fileperms   List files with unusual permission settings.
-
+     bigfiles    ROOT_DIR_PATH SIZE     List the files in the directory tree rooted in ROOT_DIR_PATH 
+                                        above SIZE (in bytes).
+     categorize  ROOT_DIR_PATH          Classify files in the directory tree rooted in ROOT_DIR_PATH 
+                                        into mime/types (e.g., text/csv).
+     catsizes    ROOT_DIR_PATH          Display the total size per category of files of the directory
+                                        tree rooted in ROOT_DIR_PATH.
+     fileperms   ROOT_DIR_PATH          List files in the directory tree rooted in ROOT_DIR_PATH with 
+                                        unusual permission settings.
 ```
 
-## Possible future developements
+For general info:
+```bash
+    python main.py --help             Show an explanatory menu.
+```
+
+For info on the specific command:
+```bash
+    python main.py COMMAND --help     Show an explanatory message for the provided command.
+```
+
+### Examples
+
+#### Categorizing files
+```bash
+     $ python main.py categorize './model'
+```
+
+which outputs:
+```bash
+    filepath        | category
+    ------------------------------
+    ./model/file_categorization_strategy.py | text/x-python
+    ./model/func_utils.py   | text/x-python
+    ./model/file_permissions.py     | text/x-python
+    ./model/file_category.py        | text/x-python
+    ...
+```
+#### Analyzing file categories' sizes
+
+```bash
+     $ python main.py catsizes './model'
+```
+
+which outputs:
+```bash
+    category        | size (B)
+    ------------------------------
+    FileCategory(name='text/x-python')      | 18245
+    FileCategory(name='application/x-python-code')  | 29591
+```
+#### Reporting unusual permissions
+
+```bash
+     $ python main.py fileperms './model'
+```
+
+which outputs:
+```bash
+    filepath        | permissions
+    ------------------------------
+    ./model/__pycache__/file_listing_generators.cpython-312.pyc     | {'WORLD_EXECUTABLE'}
+    ./model/__pycache__/file_generators.cpython-312.pyc     | {'WORLD_EXECUTABLE'}
+    ./model/__pycache__/file_permissions.cpython-312.pyc    | {'WORLD_EXECUTABLE'}
+    ...
+```
+
+#### Listing large files
+
+```bash
+     $ python main.py bigfiles './model 1000'
+```
+
+which outputs:
+```bash
+    filepath        | size (B)
+    ------------------------------
+    ./model/file_listing_generators.py      | 9269
+    ./model/__pycache__/file_listing_generators.cpython-312.pyc     | 10174
+```
+
+## Possible future developments
 
 1. Since the function [os.walk(...)](https://docs.python.org/3/library/os.html#os.walk) already exploits internally (up to Python 3.12.2) a time-consuming call to [os.stat()](https://docs.python.org/3/library/os.html#os.stat) for obtaining file info, an implementation reusing this call instead of using a separate one could be explored for improved efficiency.
 2. As obtaining file information involves time-consuming I/O operations and blocking system calls, an implementation that leverages asynchronous I/O could be explored for improved efficiency. This becomes even more impactful if a file signature is employed for file categorization.

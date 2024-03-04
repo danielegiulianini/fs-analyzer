@@ -5,10 +5,10 @@ from fs_analyzer.model.file_listing_generators import *
 
 class DirectoryAnalizer():
     """Represents the high-level features of the fs_analyzer app, namely:
-        - File Type Categorization: Classify files into categories (e.g., text, image, 
+        - File Type Categorization: Classify files into categories (e.g., text, image,
             executable, etc.) based on their extensions or file signatures.
         - Size Analysis: Calculate the total size for each file type category.
-        - File Permissions Report: Generate a report of files with unusual permission 
+        - File Permissions Report: Generate a report of files with unusual permission
             settings (e.g., world-writable files).
         - Large Files Identification: Identify and list files above a certain size threshold.
         
@@ -46,45 +46,55 @@ class DirectoryAnalizer():
         self._observer = observer
         if not os.path.isdir(self._directory_path):
             self._observer.on_invalid_input("The provided path does not point to a directory.")
-
-
-    def _os_error_handler(func):
+    
+    
+    def _walk_error_handler(self, exception_instance):
+        match exception_instance:
+            case FileNotFoundError():
+                self._observer.on_file_not_found()
+            case PermissionError(): 
+                self._observer.on_permission_error()
+            case  _:
+                self._observer.on_unknown_error()
+    
+    def _generic_error_handler(func):
         def inner_function(self, *args, **kwargs):
             try:
                 func(self, *args, **kwargs)
-            except FileNotFoundError:
-                self._observer.on_file_not_found()
-            except PermissionError: 
-                self._observer.on_permission_error() 
-            except Exception:
+            except Exception as e:
+                print(e)
                 self._observer.on_unknown_error()
         return inner_function
-    
-    @_os_error_handler
+
+
+    @_generic_error_handler
     def categorize_files(self)->None:
         """Walks the directory tree classifying files.
         """
         for (filepath, category) in yield_file_categories(directory_path=self._directory_path, 
-                                                          file_categorization_strategy = self._file_categorization_strategy):
-           self._observer.on_new_categorized_file(filepath, category)
+                                                          file_categorization_strategy = self._file_categorization_strategy,
+                                                          on_error = self._walk_error_handler):
+            self._observer.on_new_categorized_file(filepath, category)
 
-    @_os_error_handler
+    @_generic_error_handler
     def analize_category_sizes(self)->None:
         """"Walks the directory tree reporting files categories' sizes.
         """
         for (category, size) in yield_categories_sizes(directory_path = self._directory_path, 
-                                                       file_categorization_strategy = self._file_categorization_strategy):
+                                                       file_categorization_strategy = self._file_categorization_strategy,
+                                                       on_error = self._walk_error_handler):
             self._observer.on_new_file_category_size(category, size)
 
-    @_os_error_handler
+    @_generic_error_handler
     def report_permissions(self)->None:
         """"Walks the directory tree by reporting files with unusual permissions settings.
         """
         for (filepath, permissions) in yield_unusual_permissions(directory_path=self._directory_path,
-                                                                 permission_reporting_strategy = self._permission_reporting_strategy):
+                                                                 permission_reporting_strategy = self._permission_reporting_strategy,
+                                                                 on_error = self._walk_error_handler):
             self._observer.on_new_file_with_unusual_permission(filepath, permissions)
 
-    @_os_error_handler
+    @_generic_error_handler
     def identify_large_files(self,file_size_in_bytes:int)->None:
         """Walks the directory tree by identifying files with size greater than the provided
         threshold.
@@ -96,8 +106,7 @@ class DirectoryAnalizer():
             self._observer.on_invalid_input("the provided size must be >=0.")
         else:
             for (filepath, size) in yield_files_larger_than(directory_path=self._directory_path, 
-                                                            threshold_in_bytes=file_size_in_bytes):
+                                                            threshold_in_bytes=file_size_in_bytes,
+                                                            on_error = self._walk_error_handler):
                 self._observer.on_new_large_file(filepath, size)
 
-
-    

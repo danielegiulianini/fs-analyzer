@@ -2,8 +2,8 @@
 
 This package contain some reusable classes and generators to analyze 
 and report on the file system structure and usage, designed for handling
-large directories. They are reusable outside of the scope of the fs_analyzer 
-command line application.
+large directories thanks to generators' lazy nature. They are reusable 
+outside of the scope of the fs_analyzer command line application.
     
 In particular,
 
