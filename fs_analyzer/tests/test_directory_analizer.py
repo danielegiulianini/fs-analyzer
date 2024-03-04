@@ -4,8 +4,8 @@ from pytest import fail
 
 from fs_analyzer.model.file_categorization_strategy import FileCategorizationStrategy
 from fs_analyzer.model.file_permission_reporting_strategy import FilePermissionsReportingStrategy
-from fs_analyzer.tests.utils import DirectoryTreeScenario, \
-    assert_no_exception_raised, assert_no_exception_raised_with_arg
+from fs_analyzer.tests.fixtures import DirectoryTreeScenario
+from fs_analyzer.tests.utils import assert_no_exception_raised, assert_no_exception_raised_with_arg
 from fs_analyzer.view.cli_view import *
 from fs_analyzer.view_model.directory_analizer import DirectoryAnalizer
 from fs_analyzer.view_model.directory_observer import DirectoryObserver
