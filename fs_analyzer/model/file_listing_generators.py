@@ -143,7 +143,8 @@ def yield_unusual_permissions(directory_path:str,
                 if on_error is not None:
                     on_error(e)
                 continue
-            yield (filepath, unusual_permissions)
+            if len(unusual_permissions) > 0:
+                yield (filepath, unusual_permissions)
         
 def yield_categories_sizes(directory_path:str, 
                            file_categorization_strategy: FileCategorizationStrategy = FileCategorizerByExtension(), 
